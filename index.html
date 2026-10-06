@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+(function () {
+    try {
+        if (localStorage.getItem("theme") === "light") {
+            document.documentElement.classList.add("light");
+        }
+    } catch (e) {}
+})();
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dayna O'Reilly | Startup Builder</title>
+<meta name="description" content="Building a startup inside a large US multinational corporation, bringing an entrepreneurial approach to an established global environment.">
+
+<meta property="og:title" content="Dayna O'Reilly | Startup Builder">
+<meta property="og:description" content="Building a startup inside a large US multinational corporation.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dayna O'Reilly | Startup Builder">
+<meta name="twitter:description" content="Building a startup inside a large US multinational corporation.">
+
+<!-- Add og:image later: 1200x630 PNG matching dark theme -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🚀</text></svg>'>
+
+<style>
+:root {
+    --bg: #020a18;
+    --bg-grad: linear-gradient(170deg, #020a18 0%, #041028 40%, #06142e 70%, #020a18 100%);
+    --surface: rgba(8,24,56,0.85);
+    --border: rgba(0,170,255,0.12);
+    --border-glow: rgba(0,170,255,0.3);
+    --text: #d0e0f0;
+    --text-bright: #e8f0ff;
+    --text-dim: #6888aa;
+    --neon: #00aaff;
+    --cyan: #00e5ff;
+    --green: #00ff88;
+    --amber: #ffaa00;
+    --red: #ff4466;
+    --purple: #aa66ff;
+    --header: rgba(2,10,24,0.72);
+    --grid: rgba(0,170,255,0.03);
+    --shadow: rgba(0,0,0,0.3);
+}
+
+html.light {
+    --bg: #e8eef7;
+    --bg-grad: linear-gradient(170deg, #eef3fa 0%, #e2ebf6 40%, #dce7f4 70%, #edf3f9 100%);
+    --surface: rgba(255,255,255,0.88);
+    --border: rgba(0,92,160,0.18);
+    --border-glow: rgba(0,112,190,0.25);
+    --text: #263b50;
+    --text-bright: #0b2036;
+    --text-dim: #587087;
+    --neon: #006fb9;
+    --cyan: #007f9c;
+    --green: #087c54;
+    --amber: #9a6200;
+    --red: #c62e4d;
+    --purple: #7045b8;
+    --header: rgba(239,245,251,0.8);
+    --grid: rgba(0,70,130,0.045);
+    --shadow: rgba(26,57,88,0.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    background-image: var(--bg-grad);
+    color: var(--text);
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.background-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+}
+
+.orb {
+    position: fixed;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.orb-one {
+    background: var(--neon);
+    left: calc(50% - 800px);
+    top: 10%;
+    animation: orbitOne 18s ease-in-out infinite alternate;
+}
+
+.orb-two {
+    background: var(--purple);
+    right: calc(50% - 820px);
+    top: 45%;
+    animation: orbitTwo 22s ease-in-out infinite alternate;
+}
+
+.orb-three {
+    background: var(--cyan);
+    left: calc(50% - 760px);
+    bottom: -180px;
+    animation: orbitThree 25s ease-in-out infinite alternate;
+}
+
+@keyframes orbitOne {
+    from { transform: translate(0, 0); }
+    to { transform: translate(80px, 100px); }
+}
+
+@keyframes orbitTwo {
+    from { transform: translate(0, 0); }
+    to { transform: translate(-90px, -80px); }
+}
+
+@keyframes orbitThree {
+    from { transform: translate(0, 0); }
+    to { transform: translate(100px, -70px); }
+}
+
+.content-layer {
+    position: relative;
+    z-index: 1;
+}
+
+.container {
+    width: 100%;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--header);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.header-inner {
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.header-name {
+    color: var(--text-bright);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.header-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-button {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text-bright);
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.icon-button:hover {
+    border-color: var(--border-glow);
+    color: var(--cyan);
+    box-shadow: 0 0 18px var(--border-glow);
+    transform: translateY(-1px);
+}
+
+.hero {
+    padding: 110px 0 90px;
+}
+
+.eyebrow {
+    color: var(--neon);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    margin: 0;
+    color: var(--text-bright);
+    font-size: clamp(3rem, 9vw, 6rem);
+    line-height: 0.98;
+    letter-spacing: -0.065em;
+}
+
+.role {
+    margin: 18px 0 35px;
+    color: var(--cyan);
+    font-size: clamp(1.15rem, 3vw, 1.5rem);
+    font-weight: 600;
+}
+
+.hero-statement {
+    max-width: 760px;
+    margin: 0 0 38px;
+    color: var(--text);
+    font-size: clamp(1.45rem, 4vw, 2.15rem);
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+}
+
+.cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border: 1px solid var(--neon);
+    border-radius: 10px;
+    background: rgba(0,170,255,0.1);
+    color: var(--text-bright);
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.cta:hover {
+    color: var(--cyan);
+    border-color: var(--cyan);
+    box-shadow: 0 0 24px var(--border-glow);
+    transform: translateY(-2px);
+}
+
+a {
+    color: var(--neon);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--cyan);
+    text-shadow: 0 0 10px var(--border-glow);
+}
+
+.sections {
+    padding-bottom: 80px;
+}
+
+.section-card {
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--surface);
+    box-shadow: 0 10px 40px var(--shadow);
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.section-card:hover {
+    border-color: var(--border-glow);
+}
+
+.section-toggle {
+    width: 100%;
+    padding: 22px 24px;
+    border: 0;
+    background: transparent;
+    color: var(--text-bright);
+    display: grid;
+    grid-template-columns: 42px 1fr 32px;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+}
+
+.section-number {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border-glow);
+    border-radius: 50%;
+    color: var(--cyan);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.section-icon {
+    color: var(--neon);
+    font-size: 1.5rem;
+    text-align: center;
+    line-height: 1;
+}
+
+.section-body {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.35s ease;
+}
+
+.section-body-inner {
+    min-height: 0;
+    overflow: hidden;
+}
+
+.section-content {
+    padding: 0 24px 26px 80px;
+    color: var(--text);
+}
+
+.section-content p:first-child {
+    margin-top: 0;
+}
+
+.section-content p:last-child {
+    margin-bottom: 0;
+}
+
+.section-content ul {
+    margin: 12px 0 0;
+    padding-left: 20px;
+}
+
+.section-content li {
+    margin: 8px 0;
+}
+
+.section-card.closed .section-body {
+    grid-template-rows: 0fr;
+}
+
+.section-card.closed .section-icon {
+    transform: rotate(0deg);
+}
+
+.signature {
+    color: var(--text-bright);
+    font-weight: 500;
+}
+
+.focus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.focus-item {
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(0,170,255,0.04);
+}
+
+.focus-item strong {
+    display: block;
+    color: var(--cyan);
+    margin-bottom: 5px;
+}
+
+.inferred {
+    color: var(--text-dim);
+    font-size: 0.85em;
+}
+
+footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 0 38px;
+    color: var(--text-dim);
+    font-size: 0.86rem;
+    text-align: center;
+}
+
+@media (max-width: 650px) {
+    .hero {
+        padding: 75px 0 60px;
+    }
+
+    .section-toggle {
+        padding: 18px;
+        grid-template-columns: 36px 1fr 28px;
+    }
+
+    .section-number {
+        width: 32px;
+        height: 32px;
+    }
+
+    .section-content {
+        padding: 0 18px 22px 68px;
+    }
+
+    .focus-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background-grid"></div>
+<div class="orb orb-one"></div>
+<div class="orb orb-two"></div>
+<div class="orb orb-three"></div>
+
+<div class="content-layer">
+
+<header>
+    <div class="container header-inner">
+        <div class="header-name">Dayna O'Reilly</div>
+
+        <div class="header-actions">
+            <button
+                class="icon-button"
+                id="themeToggle"
+                type="button"
+                title="Toggle light or dark mode"
+                aria-label="Toggle light or dark mode"
+            >☀</button>
+
+            <button
+                class="icon-button"
+                id="collapseToggle"
+                type="button"
+                title="Collapse or expand all sections"
+                aria-label="Collapse or expand all sections"
+            >−</button>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <div class="eyebrow">Building from within</div>
+
+        <h1>Dayna<br>O'Reilly</h1>
+
+        <div class="role">Startup Builder</div>
+
+        <p class="hero-statement">
+            Building a startup inside a large US multinational corporation,
+            bringing an entrepreneurial approach to an established global environment.
+        </p>
+
+        <a class="cta" href="#work">
+            Explore what I'm building ↓
+        </a>
+    </section>
+
+    <div class="sections" id="work">
+
+        <section class="section-card">
+            <button class="section-toggle" type="button" aria-expanded="true">
+                <span class="section-number">1</span>
+                <span class="section-title">What I'm Building</span>
+                <span class="section-icon">−</span>
+            </button>
+
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="section-content">
+                        <p class="signature">
+                            Building a startup within a large US multinational corporation.
+                        </p>
+
+                        <p>
+                            The focus is on creating something new while working inside
+                            an established global environment, combining the pace and
+                            mindset of a startup with the context of a multinational organisation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <button class="section-toggle" type="button" aria-expanded="true">
+                <span class="section-number">2</span>
+                <span class="section-title">My Approach</span>
+                <span class="section-icon">−</span>
+            </button>
+
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="section-content">
+                        <p class="signature">
+                            Bringing a startup approach to a multinational setting.
+                            <span class="inferred">[inferred]</span>
+                        </p>
+
+                        <p>
+                            My approach is credible, focused and entrepreneurial.
+                            <span class="inferred">[inferred]</span>
+                            The aim is to build with clarity while recognising the realities
+                            of operating within a much larger organisation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <button class="section-toggle" type="button" aria-expanded="true">
+                <span class="section-number">3</span>
+                <span class="section-title">The Corporate Startup Challenge</span>
+                <span class="section-icon">−</span>
+            </button>
+
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="section-content">
+                        <p class="signature">
+                            Developing something new within an established corporate environment.
+                            <span class="inferred">[inferred]</span>
+                        </p>
+
+                        <p>
+                            Building within a multinational means working at the intersection
+                            of two different environments: the entrepreneurial drive to create
+                            something new and the structures of an established corporation.
+                            <span class="inferred">[inferred]</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <button class="section-toggle" type="button" aria-expanded="true">
+                <span class="section-number">4</span>
+                <span class="section-title">What I'm Focused On</span>
+                <span class="section-icon">−</span>
+            </button>
+
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="section-content">
+
+                        <p>
+                            My current focus is building a startup for a large US
+                            multinational corporation.
+                        </p>
+
+                        <div class="focus-grid">
+                            <div class="focus-item">
+                                <strong>Build</strong>
+                                Creating something new within an established organisation.
+                                <span class="inferred">[inferred]</span>
+                            </div>
+
+                            <div class="focus-item">
+                                <strong>Approach</strong>
+                                Bringing an entrepreneurial mindset into a multinational setting.
+                                <span class="inferred">[inferred]</span>
+                            </div>
+
+                            <div class="focus-item">
+                                <strong>Goal</strong>
+                                Building trust and being taken seriously by colleagues,
+                                peers and my professional network.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</main>
+
+<footer>
+    <div class="container">
+        Dayna O'Reilly · <span id="year"></span> · Built with the AI Badge
+    </div>
+</footer>
+
+</div>
+
+<script>
+const root = document.documentElement;
+const themeToggle = document.getElementById("themeToggle");
+const collapseToggle = document.getElementById("collapseToggle");
+const sections = [...document.querySelectorAll(".section-card")];
+
+function updateThemeIcon() {
+    const isLight = root.classList.contains("light");
+    themeToggle.textContent = isLight ? "☾" : "☀";
+}
+
+themeToggle.addEventListener("click", () => {
+    root.classList.toggle("light");
+
+    try {
+        localStorage.setItem(
+            "theme",
+            root.classList.contains("light") ? "light" : "dark"
+        );
+    } catch (e) {}
+
+    updateThemeIcon();
+});
+
+function setSectionState(section, open) {
+    const button = section.querySelector(".section-toggle");
+    const icon = section.querySelector(".section-icon");
+
+    section.classList.toggle("closed", !open);
+    button.setAttribute("aria-expanded", String(open));
+    icon.textContent = open ? "−" : "+";
+}
+
+sections.forEach(section => {
+    const button = section.querySelector(".section-toggle");
+
+    button.addEventListener("click", () => {
+        const open = section.classList.contains("closed");
+        setSectionState(section, open);
+        updateCollapseIcon();
+    });
+});
+
+function updateCollapseIcon() {
+    const allClosed = sections.every(section =>
+        section.classList.contains("closed")
+    );
+
+    collapseToggle.textContent = allClosed ? "+" : "−";
+}
+
+collapseToggle.addEventListener("click", () => {
+    const anyOpen = sections.some(section =>
+        !section.classList.contains("closed")
+    );
+
+    sections.forEach(section => {
+        setSectionState(section, !anyOpen);
+    });
+
+    updateCollapseIcon();
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+updateThemeIcon();
+updateCollapseIcon();
+</script>
+
+</body>
+</html>
